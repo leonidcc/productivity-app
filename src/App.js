@@ -2,6 +2,7 @@ import "./styles/App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./components/Header/index";
 import Card from "./components/Card/index";
+import Tests from "./components/Cronometro/index";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         {/* Aqui Enrutador */}
         {/* Vistas */}
         <Card />
+        <Tests/>
       </div>
     </div>
   );
