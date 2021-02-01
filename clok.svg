@@ -1,0 +1,8 @@
+<svg viewbox="0 0 100 100">
+  <circle cx="50" cy="50" r="50" fill="#FDB900"/>
+  <path fill="none" stroke-linecap="round" stroke-width="5" stroke="#fff"
+        stroke-dasharray="151.2,251.2"
+        d="M50 10
+           a 40 40 0 0 1 0 80
+           a 40 40 0 0 1 0 -80"/>
+    </svg>

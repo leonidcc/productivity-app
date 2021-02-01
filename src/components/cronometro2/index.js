@@ -21,8 +21,9 @@ export default function Cron2() {
   };
 
   const update = () => {
-    setCrono({ ...crono, secons: --crono.secons });
-  };
+      if(crono.secons > 55)
+        setCrono({ ...crono, secons: --crono.secons });
+      };
 
   return (
     <div>
