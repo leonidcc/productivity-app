@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import Figure from "../Figure/index";
 
 const Counter = styled.div`
   display: flex;
@@ -7,11 +8,9 @@ const Counter = styled.div`
   justify-content: center;
   align-items: center;
   color: #fff;
-  border: 5px solid #fff;
   width: 200px;
   height: 200px;
   cursor: pointer;
-  /* border-radius: 50%; */
 `;
 
 const Marker = styled.p`
@@ -29,7 +28,7 @@ export default function Cron2() {
     reset: false,
     ciclo: 0,
     work: 25,
-    secons: 60,
+    secons: 1500,
     counting: false,
   });
 
@@ -55,15 +54,22 @@ export default function Cron2() {
     setCrono({ ...crono, counting: !crono.counting });
   };
 
+  let percent = (crono.secons * 100) / (60 * 25);
+  console.log(percent);
+
   return (
     <>
       <p className="ciclos text-white"> {crono.ciclo} Ciclos de 4</p>
-      <Counter onClick={counting}>
-        <Marker>
-          {crono.work}:{crono.secons}
-        </Marker>
-        <StateCounter>{crono.counting ? "Pause" : "Reanude"}</StateCounter>
-      </Counter>
+
+      <Figure load={percent}>
+        <Counter onClick={counting}>
+          <Marker>
+            {Math.floor(crono.secons / 60)}:{crono.secons % 60}
+          </Marker>
+          <StateCounter>{crono.counting ? "Pause" : "Reanude"}</StateCounter>
+        </Counter>
+      </Figure>
+
       <button onClick={reset} type="button" name="button">
         Reset
       </button>

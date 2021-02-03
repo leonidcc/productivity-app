@@ -10,7 +10,6 @@ function App() {
     <div className="app__body">
       <Header />
       <div className="container">
-      <Figure/>
         {/* Aqui Enrutador */}
         {/* Vistas */}
         <Card />
