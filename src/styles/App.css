@@ -1,5 +1,5 @@
 .app__body {
   font-family: "Josefin Sans", sans-serif;
   background: hsl(235, 24%, 19%);
-  height: 100vh;
+  height: auto;
 }
