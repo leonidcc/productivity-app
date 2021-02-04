@@ -1,23 +1,25 @@
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./styles/App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./components/Header/index";
-import Card from "./components/Card/index";
-import Crono2 from "./components/cronometro2/index";
-import Figure from "./components/Figure/index";
-import Switch from "./components/Switch/index";
+import Home from "./views/Home/Home";
+import Board from "./views/Board/Board";
 
 function App() {
   return (
-    <div className="app__body">
-      <Header />
-      <div className="container">
-        {/* Aqui Enrutador */}
-        {/* Vistas */}
-        <Card />
-        <Switch />
-        <Crono2 />
+    <Router>
+      <div className="app__body">
+        <Header />
+        <Switch>
+          <Route path="/board">
+            <Board />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
       </div>
-    </div>
+    </Router>
   );
 }
 

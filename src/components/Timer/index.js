@@ -23,7 +23,7 @@ const StateCounter = styled.p`
   letter-spacing: 3px;
 `;
 
-export default function Cron2() {
+export default function Timer() {
   const [crono, setCrono] = useState({
     reset: false,
     ciclo: 0,
