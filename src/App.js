@@ -4,6 +4,7 @@ import Header from "./components/Header/index";
 import Card from "./components/Card/index";
 import Crono2 from "./components/cronometro2/index";
 import Figure from "./components/Figure/index";
+import Switch from "./components/Switch/index";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         {/* Aqui Enrutador */}
         {/* Vistas */}
         <Card />
+        <Switch />
         <Crono2 />
       </div>
     </div>
