@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Figure from "../Figure/index";
+import Switch from "../Switch/index";
 
 const Counter = styled.div`
   display: flex;
@@ -61,6 +62,7 @@ export default function Timer() {
     <>
       <p className="ciclos text-white"> {crono.ciclo} Ciclos de 4</p>
 
+      <Switch/>
       <Figure load={percent}>
         <Counter onClick={counting}>
           <Marker>
