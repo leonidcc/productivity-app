@@ -64,7 +64,7 @@ const Combo = styled.header`
         position:absolute;
         background:white;
         width:100%;
-        max-width:500px;
+        max-width:600px;
         color:gray;
         border-radius:10px;
         z-index:100;
