@@ -9,7 +9,7 @@ const Clock = styled.header`
     width: 250px;
     height: 250px;
     position: relative;
-    margin: 40px;
+    margin: 10px;
   }
 
   .clock-box .main {

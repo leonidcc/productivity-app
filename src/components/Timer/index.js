@@ -1,7 +1,39 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Figure from "../Figure/index";
-import Switch from "../Switch/index";
+
+const ContainerTimer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  width: 400px;
+  height: 400px;
+  cursor: pointer;
+`;
+
+const Buttons = styled.div``;
+
+const ButtonLeft = styled.button`
+  padding: 5px 15px;
+  background: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  border-top-left-radius: ${(props) => props.reset || "0"};
+  border-bottom-left-radius: ${(props) => props.reset || "0"};
+  &:hover {
+    color: #191d39;
+    background: #fff;
+  }
+`;
+
+const ButtonRigth = styled(ButtonLeft)`
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+`;
 
 const Counter = styled.div`
   display: flex;
@@ -31,6 +63,8 @@ export default function Timer() {
     work: 25,
     secons: 1500,
     counting: false,
+    break_short: 0,
+    break_long: 0,
   });
 
   useEffect(() => {
@@ -59,10 +93,11 @@ export default function Timer() {
   console.log(percent);
 
   return (
-    <>
-      <p className="ciclos text-white"> {crono.ciclo} Ciclos de 4</p>
-
-      <Switch/>
+    <ContainerTimer>
+      <p className="ciclos text-white">
+        Ciclos: {crono.ciclo} | Break_short: {crono.break_short} | Break_long:
+        {crono.break_long}
+      </p>
       <Figure load={percent}>
         <Counter onClick={counting}>
           <Marker>
@@ -71,17 +106,23 @@ export default function Timer() {
           <StateCounter>{crono.counting ? "Pause" : "Reanude"}</StateCounter>
         </Counter>
       </Figure>
-
-      <button onClick={reset} type="button" name="button">
-        Reset
-      </button>
-      {crono.work === 25 && crono.secons === 60 ? (
-        <button onClick={counting} type="button" name="button">
-          Start
-        </button>
-      ) : (
-        ""
-      )}
-    </>
+      <Buttons>
+        <ButtonLeft
+          reset={crono.counting ? "" : "15px"}
+          onClick={reset}
+          type="button"
+          name="button"
+        >
+          Reset
+        </ButtonLeft>
+        {crono.work === 25 && crono.secons === 60 ? (
+          <ButtonRigth onClick={counting} type="button" name="button">
+            Start
+          </ButtonRigth>
+        ) : (
+          ""
+        )}
+      </Buttons>
+    </ContainerTimer>
   );
 }
