@@ -1,6 +1,14 @@
 import React,  { useState }from "react";
 import styled from "styled-components";
 
+// Hooks react redux
+import { useDispatch, useSelector } from "react-redux";
+// Importamos la acción
+import {
+  timerIncrementarAction
+} from "../../redux/relojTypeData";
+
+
 const Combo = styled.header`
 .color{
     height:20px;
@@ -91,17 +99,44 @@ const Combo = styled.header`
     }
 `;
 
-export default function Switch( {plantillas=["pomodoro","Agustino","pomodoro"]}) {
+
+export default function Switch( ) {
+    // declaramos displach para llamar a la acción o acciones
+    const dispatch = useDispatch();
+    // creamos el state utilizando nuestra tienda
+    const estado = useSelector((store) => store.option.name);
+
     const [modal, setModal] = useState(false)
-    const listItems = plantillas.map((number) =>
-    <option key={number.toString()} >{number}</option>
+
+    const enviarDatos = (e) => {
+            setModal(!modal)
+            e.preventDefault();
+            let temp =  lsGet();
+            temp[e.target.name.value] = {
+                "name" : e.target.name.value,
+                "ciclo" : e.target.ciclo.value,
+                "work" : e.target.work.value,
+                "rest" : e.target.rest.value,
+                "color" : e.target.color.value
+            }
+            lsSet(temp);
+    }
+
+    const chage = (e) => {
+        console.log(e.target.value);
+         dispatch(timerIncrementarAction(e.target.value))
+    }
+
+    const listItems = Object.keys( lsGet()).map((number) =>
+    <option key={number.toString()} value={number}>{number}</option>
     );
+
   return (
     <Combo>
     <>
         <div className="boxCombo">
         <div  className="combo d-flex">
-            <select name="select">
+            <select name="select" onChange={chage}>
                 {listItems}
             </select>
             <button type="button" name="button" onClick={()=>{setModal(!modal)}}>
@@ -126,6 +161,7 @@ export default function Switch( {plantillas=["pomodoro","Agustino","pomodoro"]})
         </div>
 
             <hr></hr>
+            <form onSubmit={enviarDatos}>
           <div className="form-group">
             <label className="d-flex justify-content-between"  >
             Mombre
@@ -134,41 +170,61 @@ export default function Switch( {plantillas=["pomodoro","Agustino","pomodoro"]})
                       <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
                 </svg>
                 </label>
-            <input type="text" className="form-control"  placeholder="Mombre de la configuración"></input>
+            <input   list="browsers"  required type="text" className="form-control" name="name"  placeholder="Mombre de la configuración"></input>
+            <datalist id="browsers">
+                {listItems}
+            </datalist>
            </div>
 
            <div className="form-row">
              <div className="col-4">
              <label  >Ciclo</label>
-               <input type="number" className="form-control" placeholder="Ciclo"></input>
+               <input required type="number" name="ciclo" className="form-control" placeholder="Ciclo"></input>
              </div>
              <div className="col-4">
                 <label  >Trabajo</label>
-               <input type="number" className="form-control" placeholder="trabajo"></input>
+               <input required type="number" name="work" className="form-control" placeholder="trabajo"></input>
              </div>
              <div className="col-4">
              <label  >Descanso</label>
-               <input type="number" className="form-control" placeholder="descanso"></input>
+               <input required type="number" name="rest" className="form-control" placeholder="descanso"></input>
              </div>
            </div>
            <div className="mt-3 form-group">
            <label for="exampleColorInput" className="form-label">Color</label>
            <div className="d-flex">
-           <div className="color form-control  mx-1 form-control-color"> </div>
-           <div className="color form-control bg-success mx-1 form-control-color"> </div>
-           <div className="color form-control bg-primary mx-1 form-control-color"> </div>
-           <div className="color form-control bg-danger mx-1 form-control-color"> </div>
-           <div className="color form-control bg-info mx-1 form-control-color"> </div>
+           <input required type="color" name="color"></input>
+
            </div>
            </div>
 
 
         <div className="boxBtn">
-        <button   type="button" name="button">Apply</button>
+        <button   type="submit"   >Apply</button>
         </div>
+        </form>
     </div>
     </div>
 </>
 </Combo>
   );
+}
+
+
+function lsGet(){
+    if(!localStorage.getItem("plantillasx123kas")) localStorage.setItem("plantillasx123kas", JSON.stringify(
+        {
+            "pomodoro":{
+               "name" : "pomodoro",
+               "ciclo" : "4",
+               "work" : "25",
+               "rest" : "5",
+               "color" : "green"
+           }
+        }
+   ));
+    return JSON.parse(localStorage.getItem("plantillasx123kas"));
+}
+function lsSet(data) {
+        localStorage.setItem("plantillasx123kas", JSON.stringify(data));
 }
