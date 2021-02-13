@@ -7,17 +7,21 @@ export const ContainerTimer = styled.div`
   align-items: center;
   color: #fff;
   width: 400px;
-  height: 400px;
+  height: auto;
+  min-height: 400px;
   cursor: pointer;
 `;
 
-export const Buttons = styled.div``;
+export const Buttons = styled.div`
+  margin-top: 15px;
+`;
 
 export const ButtonLeft = styled.button`
-  padding: 5px 15px;
+  padding: 8px 20px;
   background: transparent;
   border: 1px solid #fff;
   color: #fff;
+  margin-right: 10px;
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
   border-top-right-radius: ${(props) => props.reset || "0"};
@@ -47,11 +51,15 @@ export const Counter = styled.div`
 `;
 
 export const Marker = styled.p`
-  font-size: 48px;
+  font-size: 50px;
   font-weight: bold;
+  margin: 0;
+  padding: 0;
 `;
 
 export const StateCounter = styled.p`
-  font-size: 20px;
-  letter-spacing: 5px;
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+  letter-spacing: 4px;
 `;

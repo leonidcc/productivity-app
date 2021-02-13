@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   ContainerTimer,
   Buttons,
@@ -10,17 +10,20 @@ import {
 } from "./styles";
 import Figure from "../Figure/index";
 import Indicator from "../Indicator/index";
+// Sounds
+import Sound from "../../assets/state-change_confirm-up.wav";
 
 export default function Timer() {
   const [crono, setCrono] = useState({
     reset: false,
     ciclo: 0,
     work: 25,
-    secons: 1500,
+    secons: 120,
     counting: false,
     break_short: 0,
-    break_long: 1,
+    break_long: 0,
   });
+  const audioRef = useRef(null);
 
   useEffect(() => {
     console.log("se monta");
@@ -31,7 +34,7 @@ export default function Timer() {
   }, [crono.reset, crono.counting]);
 
   const reset = () => {
-    setCrono({ ...crono, secons: 60, reset: !crono.reset });
+    setCrono({ ...crono, secons: 120, reset: !crono.reset });
   };
 
   const update = () => {
@@ -44,20 +47,45 @@ export default function Timer() {
     setCrono({ ...crono, counting: !crono.counting });
   };
 
+  const blockWork = () => {
+    setCrono({
+      ...crono,
+      counting: crono.ciclo++,
+      secons: 120,
+      counting: !crono.counting,
+    });
+    playSound();
+    return "Haz completado un bloque";
+  };
+
+  const playSound = () => {
+    audioRef.current.play();
+  };
+
   let percent = (crono.secons * 100) / (60 * 25);
+  let markMinutes = Math.floor(crono.secons / 60);
+  let markSecons = crono.secons % 60;
 
   return (
     <>
-      <Indicator
-        cycle={crono.ciclo}
-        br_s={crono.break_short}
-        br_l={crono.break_long}
-      />
+      <p className="text-white">{markMinutes === 0 ? blockWork() : ""}</p>
       <ContainerTimer>
+        <Indicator
+          cycle={crono.ciclo}
+          br_s={crono.break_short}
+          br_l={crono.break_long}
+        />
         <Figure load={percent}>
           <Counter onClick={counting}>
+            <audio ref={audioRef} src={Sound}></audio>
             <Marker>
-              {Math.floor(crono.secons / 60)}:{crono.secons % 60}
+              {markMinutes.toString().length === 1
+                ? "0" + markMinutes
+                : markMinutes}
+              :
+              {markSecons.toString().length === 1
+                ? "0" + markSecons
+                : markSecons}
             </Marker>
             <StateCounter>{crono.counting ? "Pause" : "Reanude"}</StateCounter>
           </Counter>
@@ -71,7 +99,7 @@ export default function Timer() {
           >
             Reset
           </ButtonLeft>
-          {crono.work === 25 && crono.secons === 60 ? (
+          {crono.work === 25 && crono.secons === 120 ? (
             <ButtonRigth onClick={counting} type="button" name="button">
               Start
             </ButtonRigth>

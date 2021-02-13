@@ -22,6 +22,8 @@ const List = styled.div`
   color: #fff;
   border-radius: 7px;
   font-size: 20px;
+  cursor: pointer;
+  margin-bottom: 30px;
 `;
 
 const Container = styled.div`
@@ -43,13 +45,13 @@ export default function Indicator({ cycle, br_s, br_l }) {
       </Container>
 
       <Container>
-        <GiCoffeeCup size={size} color={color} />
-        <span>{br_s}</span>
+        <RiTimerLine size={size} color={color} />
+        <span>{br_l}</span>
       </Container>
 
       <Container>
-        <RiTimerLine size={size} color={color} />
-        <span>{br_l}</span>
+        <GiCoffeeCup size={size} color={color} />
+        <span>{br_s}</span>
       </Container>
 
       <Container>

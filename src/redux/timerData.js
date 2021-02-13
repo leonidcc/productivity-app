@@ -1,6 +1,8 @@
 // constantes
 const dataInicial = {
   count: 0,
+  timerSatate: {},
+  configuration: {},
 };
 
 // types
