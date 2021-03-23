@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import clock from "../../assets/clock.svg";
 
 const HeaderTop = styled.header`
   display: flex;
@@ -47,12 +46,7 @@ const Ul = styled.ul`
 export default function Header() {
   return (
     <HeaderTop>
-      <p className="text-white m-0 text-center">Productivity</p>
-      {/* <li>
-        <a href="">
-          <img src={clock} alt="" />
-        </a>
-      </li> */}
+      <p className="text-white m-0 text-center">ProductivityApp</p>
       <Nav>
         <Ul>
           <li>
@@ -60,9 +54,16 @@ export default function Header() {
               <span class="material-icons">timer</span>Home
             </Link>
           </li>
+
           <li>
             <Link to="/board">
               <span class="material-icons">dashboard_customize</span>Board
+            </Link>
+          </li>
+
+          <li>
+            <Link to="/posteos">
+              <span class="material-icons">battery_charging_full</span>Mejora!
             </Link>
           </li>
         </Ul>

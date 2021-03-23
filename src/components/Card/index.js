@@ -28,7 +28,7 @@ const CardHome = styled.div`
 `;
 
 export default function Card() {
-  // declaramos displach para llamar a la acción o acciones
+  // declaramos dispatch para llamar a la acción o acciones
   const dispatch = useDispatch();
 
   // creamos el state utilizando nuestra tienda

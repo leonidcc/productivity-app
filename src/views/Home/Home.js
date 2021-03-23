@@ -6,9 +6,15 @@ import Switch from "../../components/Switch/index";
 export default function Home() {
   return (
     <div className="container">
-      <Switch />
-      <Timer />
-      <Card />
+      <div class="row">
+        <div class="col-6">
+          <Timer />
+        </div>
+        <div class="col-6">
+          <Switch />
+          <Card />
+        </div>
+      </div>
     </div>
   );
 }
