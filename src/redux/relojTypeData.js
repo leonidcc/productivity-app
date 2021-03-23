@@ -1,6 +1,13 @@
 // constantes
 const dataInicial = {
-  name:"pomodoro",
+  timerConfig:{
+    name: "pomodoro",
+    ciclo: "4",
+    work: "25",
+    break_short: "5",
+    break_long: "5",
+    color: "green",
+  },
 };
 
 // types
@@ -11,14 +18,14 @@ export default function optionReducer(state = dataInicial, action) {
     console.log(action);
   switch (action.type) {
     case SETEAR:
-      return { ...state, name:action.value };
+      return { ...state, timerConfig:action.value };
     default:
       return state;
   }
 }
 
 // actions
-export const timerIncrementarAction = (value) => async (dispatch, getState) => {
+export const timerConfigSet = (value) => async (dispatch, getState) => {
   try {
     dispatch({
       type: SETEAR,
