@@ -35,6 +35,13 @@ export default function Board() {
   const [query, setQuery] = useState(null);
 
   // creamos el state utilizando nuestra tienda
+  // const { ciclo, reset, counting } = useSelector(
+  //   (store) => store.test.timerState
+  // );
+  const state = useSelector((store) => store.test);
+  const { timerConfig, timerState } = state;
+  console.log(timerState.counting);
+
   const statePosts = useSelector((store) => store.posts);
 
   useEffect(() => {
@@ -59,7 +66,7 @@ export default function Board() {
   function RenderItems({ cb }) {
     let notFound = (
       <p style={{ color: "#fff", fontSize: "30px" }}>
-        No hay resultados{" "}
+        No hay resultados
         <span
           style={{ color: "#fff", fontSize: "30px" }}
           className="material-icons"

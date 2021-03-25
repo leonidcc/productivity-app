@@ -3,10 +3,7 @@ import styled from "styled-components";
 // Hooks react redux
 import { useDispatch, useSelector } from "react-redux";
 // Importamos la acción
-import {
-  timerIncrementarAction,
-  timerDecrementarAction,
-} from "../../redux/timerData";
+// import {} from "../../redux/timerData";
 
 const CardHome = styled.div`
   display: flex;
@@ -29,17 +26,14 @@ const CardHome = styled.div`
 
 export default function Card() {
   // declaramos dispatch para llamar a la acción o acciones
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   // creamos el state utilizando nuestra tienda
-  const estado = useSelector((store) => store.test.count);
+  // const estado = useSelector((store) => store.test.count);
 
   return (
     <CardHome>
-      <p className="text-white">Test Redux Timer</p>
-      <p className="text-white">{estado}</p>
-      <button onClick={() => dispatch(timerIncrementarAction())}>Inc +</button>
-      <button onClick={() => dispatch(timerDecrementarAction())}>Dec -</button>
+      <p className="text-white">Test Drag&Drop Reactjs</p>
     </CardHome>
   );
 }

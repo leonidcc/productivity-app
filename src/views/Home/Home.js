@@ -12,7 +12,6 @@ export default function Home() {
         </div>
         <div class="col-6">
           <Switch />
-          <Card />
         </div>
       </div>
     </div>

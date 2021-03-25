@@ -1,28 +1,25 @@
 import { useState, useEffect } from "react";
 
 export default function TimerHook() {
-  const [crono, setCrono] = useState({
-    reset: false,
-    ciclo: 0,
+  const [config, setConfig] = useState({
     work: 25,
     secons: 120,
-    counting: false,
     break_short: 0,
     break_long: 0,
   });
 
   const reset = () => {
-    setCrono({ ...crono, secons: 120, reset: !crono.reset });
+    setConfig({ ...config, secons: 120, reset: !config.reset });
   };
 
   const update = () => {
-    if (crono.counting) {
-      setCrono({ ...crono, secons: --crono.secons });
+    if (config.counting) {
+      setConfig({ ...config, secons: --config.secons });
     }
   };
 
   const counting = () => {
-    setCrono({ ...crono, counting: !crono.counting });
+    setConfig({ ...config, counting: !config.counting });
   };
 
   useEffect(() => {
@@ -31,7 +28,7 @@ export default function TimerHook() {
       update();
     }, 1000);
     return () => clearInterval(interval);
-  }, [crono.reset, crono.counting]);
+  }, [config.reset, config.counting]);
 
-  return { crono, setCrono, reset, counting };
+  return { config, setConfig, reset, counting };
 }
