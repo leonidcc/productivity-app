@@ -7,6 +7,8 @@ import {
   RiRunFill,
 } from "react-icons/ri";
 import { GiCoffeeCup } from "react-icons/gi";
+// Hooks react redux
+import { useDispatch, useSelector } from "react-redux";
 
 const List = styled.div`
   display: flex;
@@ -36,28 +38,37 @@ const Container = styled.div`
 let size = 25,
   color = "#fff";
 
-export default function Indicator({ cycle, br_s, br_l }) {
+export default function Indicator({}) {
+  // declaramos dispatch para llamar a la acción o acciones
+  const dispatch = useDispatch();
+
+  // Creamos el state utilizando nuestra tienda
+  const state = useSelector((store) => store.test);
+  console.log(state);
   return (
-    <List>
-      <Container>
-        <RiBattery2ChargeLine size={size} color={color} />
-        <span>{cycle}</span>
-      </Container>
+    <>
+      <p>{"Pomodoro"}</p>
+      <List>
+        <Container>
+          <RiBattery2ChargeLine size={size} color={color} />
+          <span>{state.ciclo}</span>
+        </Container>
 
-      <Container>
-        <RiTimerLine size={size} color={color} />
-        <span>{br_l}</span>
-      </Container>
+        <Container>
+          <RiTimerLine size={size} color={color} />
+          <span>{state.blocks}</span>
+        </Container>
 
-      <Container>
-        <GiCoffeeCup size={size} color={color} />
-        <span>{br_s}</span>
-      </Container>
+        <Container>
+          <GiCoffeeCup size={size} color={color} />
+          <span>{"0"}</span>
+        </Container>
 
-      <Container>
-        <RiRunFill size={size} color={color} />
-        <span>{br_l}</span>
-      </Container>
-    </List>
+        <Container>
+          <RiRunFill size={size} color={color} />
+          <span>{"0"}</span>
+        </Container>
+      </List>
+    </>
   );
 }

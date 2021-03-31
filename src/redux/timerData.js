@@ -1,34 +1,46 @@
 // constantes
 const dataInicial = {
-  timerState: {
-    ciclo: 0,
-    reset: false,
-    counting: false,
-  },
+  ciclo: 0,
+  reset: false,
+  counting: false,
+  worktime: null,
+  blocks: null,
   timerConfig: {
     name: "pomodoro",
-    blocks: "4",
-    work: "25",
-    break_short: "5",
-    break_long: "10",
+    blocks: 4,
+    work: 2,
+    break_short: 1,
+    break_long: 10,
     color: "green",
   },
 };
 
 // types
-const SET_CICLO = "SET_CICLO";
+const SETCICLO = "SETCICLO";
 const SETRESET = "SETRESET";
 const SETCOUNTING = "SETCOUNTING ";
+const SETEARCONFIG = "SETEARCONFIG";
+const SETWORKTIME = "SETWORKTIME";
+const SETCOUNTER = "SETCOUNTER";
+const SETBLOCKS = "SETBLOCKS";
 
 // reducer
 export default function timerReducer(state = dataInicial, action) {
   switch (action.type) {
-    case SET_CICLO:
+    case SETEARCONFIG:
+      return { ...state, timerConfig: action.value };
+    case SETWORKTIME:
+      return { ...state, worktime: action.value };
+    case SETCICLO:
       return { ...state, ciclo: state.ciclo + 1 };
+    case SETCOUNTER:
+      return { ...state, worktime: state.worktime - 1 };
     case SETRESET:
-      return { ...state, reset: !state.timerState.reset };
+      return { ...state, reset: !state.reset };
     case SETCOUNTING:
-      return { ...state, counting: !state.timerState.counting };
+      return { ...state, counting: !state.counting };
+    case SETBLOCKS:
+      return { ...state, blocks: action.value };
     default:
       return state;
   }
@@ -57,13 +69,49 @@ export const timerCountingAction = () => async (dispatch, getState) => {
   } catch (err) {
     console.log(err);
   }
-
-  // const { count } = getState().test;
-  // console.log(count);
 };
 
 export const timerCicloAction = () => async (dispatch, getState) => {
   dispatch({
-    type: SET_CICLO,
+    type: SETCICLO,
   });
+};
+
+export const timerConfigSet = (value) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: SETEARCONFIG,
+      value: value,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const timerWorkSet = (value) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: SETWORKTIME,
+      value: value,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const timerDecrementAction = () => async (dispatch, getState) => {
+  dispatch({
+    type: SETCOUNTER,
+  });
+};
+
+export const timerBlocksSet = (value) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: SETBLOCKS,
+      value: value,
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };

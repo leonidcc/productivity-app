@@ -11,6 +11,7 @@ import CardPost from "./components/CardPost/index";
 import Home from "./views/Home/Home";
 import Posts from "./views/Postes/Posts";
 import Board from "./views/Board/Board";
+import TimerControl from "./hooks/TimerControl";
 
 function App() {
   const store = generateStore();
@@ -20,6 +21,7 @@ function App() {
       <Router>
         <div className="app__body">
           <Header />
+          <TimerControl />
           <Switch>
             <Route path="/board/:slug">
               <CardPost />

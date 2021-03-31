@@ -1,4 +1,5 @@
-import React, { useRef, useEffect } from "react";
+import React from "react";
+
 import {
   ContainerTimer,
   Buttons,
@@ -11,9 +12,6 @@ import {
 import Figure from "../Figure/index";
 import Indicator from "../Indicator/index";
 
-// Hook Timer
-// import TimerHook from "../../hooks/TimerCustomHook";
-
 // Hooks react redux
 import { useDispatch, useSelector } from "react-redux";
 
@@ -22,6 +20,7 @@ import {
   timerResetAction,
   timerCountingAction,
   timerCicloAction,
+  timerWorkSet,
 } from "../../redux/timerData";
 
 // Sounds
@@ -33,119 +32,56 @@ export default function Timer() {
 
   // Creamos el state utilizando nuestra tienda
   const state = useSelector((store) => store.test);
-  const { timerConfig, timerState } = state;
-  console.log(timerState);
+  const { timerConfig } = state;
 
   //Global variables Timer
-  let secons = parseInt(timerConfig.work) * 60;
-  let percent = (secons * 100) / (60 * 25);
-  let markMinutes = Math.floor(secons / 60);
-  let markSecons = secons % 60;
+  // let secons = parseInt(timerConfig.work) * 60;
+  // let percent = (secons * 100) / (60 * 25);
+  // let markMinutes = Math.floor(secons / 60);
+  // let markSecons = secons % 60;
 
-  // const { config, setConfig, reset, counting } = TimerHook();
-  // const [config, setConfig] = useState({
-  //   work: 25,
-  //   secons: 120,
-  //   break_short: 0,
-  //   break_long: 0,
-  // });
+  let count = state.worktime ? state.worktime : timerConfig.work;
 
-  const resetClick = () => {
-    // setConfig({ ...config, secons: 120, reset: !config.reset });
-    secons = parseInt(timerConfig.work) * 60;
-    dispatch(timerResetAction());
-  };
-  //Listo
+  let blockAct = Math.floor(
+    state.worktime / ((timerConfig.break_short + timerConfig.work) * 60)
+  );
+  let blockTime = (timerConfig.break_short + timerConfig.work) * 60;
 
-  const update = () => {
-    // if (config.counting) {
-    //   setConfig({ ...config, secons: --config.secons });
-    // }
-    if (timerState.counting) {
-      secons--;
-    }
-  };
-  //Listo
-
-  // const countingClick = () => {
-  //   // setConfig({ ...config, counting: !config.counting });
-  //   dispatch(timerCountingAction());
-  // };
-  //Listo
-
-  useEffect(() => {
-    // reset, counting;
-    // console.log("se monta");
-    const interval = setInterval(() => {
-      update();
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [timerState.counting, timerState.reset]);
-
-  const audioRef = useRef(null);
-
-  const blockWork = () => {
-    // setConfig({
-    //   ...config,
-    //   counting: config.ciclo++,
-    //   secons: 120,
-    //   counting: !config.counting,
-    // });
-    secons = parseInt(timerConfig.work) * 60;
-    dispatch(timerCountingAction());
-    playSound();
-  };
-  //Listo
-
-  const playSound = () => {
-    audioRef.current.play();
-  };
+  let colorFigure =
+    blockAct * blockTime + timerConfig.work * 60 < state.worktime
+      ? timerConfig.color
+      : "royalblue";
 
   return (
     <>
-      <p className="text-white">{markMinutes === 0 ? blockWork() : ""}</p>
       <ContainerTimer>
         <Indicator />
-        <Figure load={percent}>
+        <Figure load={60} color={colorFigure}>
           <Counter onClick={() => dispatch(timerCountingAction())}>
-            <audio ref={audioRef} src={Sound}></audio>
             <Marker>
-              {markMinutes.toString().length === 1
+              {/* {markMinutes.toString().length === 1
                 ? "0" + markMinutes
                 : markMinutes}
               :
               {markSecons.toString().length === 1
                 ? "0" + markSecons
-                : markSecons}
+                : markSecons} */}
+              {count}
             </Marker>
-            <StateCounter>
-              {timerState.counting ? "Pause" : "Reanude"}
-            </StateCounter>
+            <StateCounter>{state.counting ? "Pause" : "Reanude"}</StateCounter>
           </Counter>
         </Figure>
+        <span>Bloque: {blockTime}</span>
+        {blockAct} <br />
+        {blockAct * blockTime - timerConfig.break_short * 60}
         <Buttons>
-          <ButtonLeft
-            reset={timerState.counting ? "15px" : ""}
-            onClick={resetClick}
-            type="button"
-            name="button"
-          >
-            Reset
-          </ButtonLeft>
-          {timerConfig.work === "25" &&
-          secons === parseInt(timerConfig.work) * 60 ? (
-            <ButtonRigth
-              onClick={() => dispatch(timerCountingAction())}
-              type="button"
-              name="button"
-            >
+          <button onClick={() => dispatch(timerWorkSet(null))}>Reset</button>
+          {!state.counting && (
+            <button onClick={() => dispatch(timerCountingAction())}>
               Start
-            </ButtonRigth>
-          ) : (
-            ""
+            </button>
           )}
         </Buttons>
-        <div>{timerConfig.name}</div>
       </ContainerTimer>
     </>
   );

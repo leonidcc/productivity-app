@@ -1,6 +1,18 @@
+// timerConfig:{
+//   name: string
+//   blocks: string
+//   work: number
+//   break_short: number
+//   break_long: number
+//   color: string
+// }
 
+// Conversion a segundos:
+// work =  parseInt(work) * 60;
+// break_short: idem a work
+// break_long:  idem a work
 
-export   function lsGet() {
+export function lsGet() {
   if (!localStorage.getItem("plantillasx123kas"))
     localStorage.setItem(
       "plantillasx123kas",

@@ -39,8 +39,6 @@ export default function Board() {
   //   (store) => store.test.timerState
   // );
   const state = useSelector((store) => store.test);
-  const { timerConfig, timerState } = state;
-  console.log(timerState.counting);
 
   const statePosts = useSelector((store) => store.posts);
 

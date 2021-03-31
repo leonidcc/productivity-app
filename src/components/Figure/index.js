@@ -41,7 +41,7 @@ const Clock = styled.header`
   }
 `;
 
-export default function Figure({ load = 70, children }) {
+export default function Figure({ load = 70, color = "#191D39", children }) {
   load = (load * 250) / 100;
   return (
     <Clock>
@@ -52,7 +52,7 @@ export default function Figure({ load = 70, children }) {
             <filter id="dropshadow" x="-2" y="-2" width="100" height="100">
               <feGaussianBlur stdDeviation="1.2" />
             </filter>
-            <circle cx="50" cy="50" r="46" fill="#191D39" />
+            <circle cx="50" cy="50" r="46" fill={color} />
             <path
               className="shadow"
               fill="none"
