@@ -73,7 +73,7 @@ export default function TimerControl() {
 
       const interval = setInterval(() => {
         update();
-      }, 500);
+    }, 100);
       return () => clearInterval(interval);
     }
   }, [state.counting, state.worktime]);

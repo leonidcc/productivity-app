@@ -52,13 +52,13 @@ export default function Figure({ load = 70, color = "#191D39", children }) {
             <filter id="dropshadow" x="-2" y="-2" width="100" height="100">
               <feGaussianBlur stdDeviation="1.2" />
             </filter>
-            <circle cx="50" cy="50" r="46" fill={color} />
+            <circle cx="50" cy="50" r="46" fill="#191D39" />
             <path
               className="shadow"
               fill="none"
               stroke-linecap="round"
               stroke-width="3"
-              stroke="#F07675"
+              stroke={color}
               stroke-dasharray={`${load},251.2`}
               d="M50 10
                         a 40 40 0 0 1 0 80
@@ -68,7 +68,7 @@ export default function Figure({ load = 70, color = "#191D39", children }) {
               fill="none"
               stroke-linecap="round"
               stroke-width="3"
-              stroke="#F07675"
+               stroke={color}
               stroke-dasharray={`${load},251.2`}
               d="M50 10
                          a 40 40 0 0 1 0 80
